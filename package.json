@@ -12,7 +12,8 @@
     "lint": "xo",
     "build": "bili --js buble --format es --filename index.js",
     "prepublishOnly": "npm run build",
-    "example": "poi example/index.js --serve --jsx vue"
+    "example": "poi example/index.js --serve --jsx vue",
+    "commit": "git-cz"
   },
   "repository": {
     "url": "egoist/vue-router-prefetch",
@@ -22,6 +23,8 @@
   "license": "MIT",
   "devDependencies": {
     "bili": "^3.4.2",
+    "commitizen": "^3.0.5",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-rem": "^4.0.0",
     "eslint-plugin-prettier": "^3.0.0",
@@ -30,6 +33,7 @@
     "lint-staged": "^7.2.0",
     "poi": "^12.4.6",
     "prettier": "^1.15.2",
+    "semantic-release": "^15.13.3",
     "vue": "^2.5.22",
     "vue-router": "^3.0.2",
     "vue-template-compiler": "^2.5.22",
@@ -62,5 +66,13 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "release": {
+    "branch": "master"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
