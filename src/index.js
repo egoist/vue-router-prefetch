@@ -29,9 +29,10 @@ export default (Vue, { componentName = 'RouterLink' } = {}) => {
       }
     },
     mounted() {
+      const conn = navigator.connection
       const canPrefetch =
-        !navigator.connection ||
-        navigator.connection.effectiveType.indexOf('2g') === -1
+        !conn ||
+        ((conn.effectiveType || '').indexOf('2g') === -1 && !conn.saveData)
       if (this.prefetch && observer && canPrefetch) {
         setTimeout(() => {
           this.observe()
