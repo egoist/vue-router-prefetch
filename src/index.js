@@ -14,7 +14,7 @@ export default (Vue, { componentName = 'RouterLink' } = {}) => {
       })
     })
 
-  const RouterLink = Vue.component('RouterLink')
+  const RouterLink = Vue.component('RouterLink') || Vue.component('router-link')
 
   if (process.env.NODE_ENV === 'development' && !RouterLink) {
     console.error(
