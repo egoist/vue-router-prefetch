@@ -10,7 +10,7 @@
   "scripts": {
     "test": "npm run lint",
     "lint": "xo",
-    "build": "bili --js buble --format es --filename index.js",
+    "build": "rollup -c",
     "prepublishOnly": "npm run build",
     "example": "poi example/index.js --serve --jsx vue",
     "commit": "git-cz"
@@ -22,7 +22,6 @@
   "author": "egoist<0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "bili": "^3.4.2",
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
     "eslint-config-prettier": "^3.3.0",
@@ -33,6 +32,10 @@
     "lint-staged": "^7.2.0",
     "poi": "^12.4.6",
     "prettier": "^1.15.2",
+    "rollup": "^1.1.2",
+    "rollup-plugin-buble": "^0.19.6",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-terser": "^4.0.2",
     "semantic-release": "^15.13.3",
     "vue": "^2.5.22",
     "vue-router": "^3.0.2",
@@ -49,7 +52,8 @@
       "browser"
     ],
     "rules": {
-      "no-new": "off"
+      "no-new": "off",
+      "no-unused-expressions": "off"
     }
   },
   "husky": {

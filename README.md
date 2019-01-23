@@ -57,6 +57,13 @@ All [props](https://router.vuejs.org/api/#router-link-props) of `<router-link>` 
 
 Whether to prefetch the matched route component.
 
+### prefetchFiles
+
+- Type: `string[]`
+- Examples: `['/foo.css']`
+
+A list of addtional files to prefetch. By default we only prefetch the route component.
+
 ## Credits
 
 Inspired by [quicklink](https://github.com/GoogleChromeLabs/quicklink) and [`nuxt-link`](https://github.com/nuxt/nuxt.js/pull/4574/).

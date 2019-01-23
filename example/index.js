@@ -22,7 +22,9 @@ const Nav = {
         </ul>
         <ul style="margin-top: 110vh;">
           <li>
-            <router-link to="/page/4">page 4</router-link>
+            <router-link to="/page/4" prefetchFiles={['/foo']}>
+              page 4
+            </router-link>
           </li>
           <li>
             <router-link to="/page/5">page 5</router-link>

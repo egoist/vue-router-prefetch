@@ -1,4 +1,9 @@
-const supported = typeof window !== 'undefined' && window.IntersectionObserver
+import prefetch from './prefetch'
+import { inBrowser } from './utils'
+
+const supported = inBrowser && window.IntersectionObserver
+
+export { prefetch }
 
 export default (Vue, { componentName = 'RouterLink' } = {}) => {
   const observer =
@@ -26,6 +31,9 @@ export default (Vue, { componentName = 'RouterLink' } = {}) => {
       prefetch: {
         type: Boolean,
         default: true
+      },
+      prefetchFiles: {
+        type: Array
       }
     },
     mounted() {
@@ -59,13 +67,22 @@ export default (Vue, { componentName = 'RouterLink' } = {}) => {
         })
       },
       linkPrefetch() {
+        // Prefetch route component
         const components = this.getComponents()
         for (const Component of components) {
           this.$emit('prefetch', this.to)
           Component() // eslint-disable-line new-cap
           Component._prefetched = true
-          this.unobserve()
         }
+
+        // Prefetch addtional files
+        if (this.prefetchFiles) {
+          for (const file of this.prefetchFiles) {
+            prefetch(file)
+          }
+        }
+
+        this.unobserve()
       }
     }
   }
