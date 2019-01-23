@@ -1,13 +1,11 @@
 import prefetch from './prefetch'
-import { inBrowser } from './utils'
-
-const supported = inBrowser && window.IntersectionObserver
+import { canPrefetch, supportIntersectionObserver } from './utils'
 
 export { prefetch }
 
 export default (Vue, { componentName = 'RouterLink' } = {}) => {
   const observer =
-    supported &&
+    supportIntersectionObserver &&
     new window.IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -37,10 +35,6 @@ export default (Vue, { componentName = 'RouterLink' } = {}) => {
       }
     },
     mounted() {
-      const conn = navigator.connection
-      const canPrefetch =
-        !conn ||
-        ((conn.effectiveType || '').indexOf('2g') === -1 && !conn.saveData)
       if (this.prefetch && observer && canPrefetch) {
         setTimeout(() => {
           this.observe()

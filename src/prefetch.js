@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-import { inBrowser } from './utils'
+import { inBrowser, canPrefetch } from './utils'
 
 const preFetched = {}
 
@@ -102,7 +102,7 @@ const supportedPrefetchStrategy = support('prefetch')
  * @return {Object} a Promise
  */
 function prefetcher(url, isPriority) {
-  if (preFetched[url]) {
+  if (!canPrefetch || preFetched[url]) {
     return
   }
 
