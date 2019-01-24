@@ -1,9 +1,7 @@
 import prefetch from './prefetch'
 import { canPrefetch, supportIntersectionObserver } from './utils'
 
-export { prefetch }
-
-export default (Vue, { componentName = 'RouterLink' } = {}) => {
+function installRouterPrefetch(Vue, { componentName = 'RouterLink' } = {}) {
   const observer =
     supportIntersectionObserver &&
     new window.IntersectionObserver(entries => {
@@ -83,3 +81,11 @@ export default (Vue, { componentName = 'RouterLink' } = {}) => {
 
   Vue.component(Link.name, Link)
 }
+
+export {
+  prefetch,
+  // Export as `install` to make `Vue.use(require('vue-router-prefetch'))` work
+  installRouterPrefetch as install
+}
+
+export default installRouterPrefetch

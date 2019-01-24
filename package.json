@@ -2,8 +2,8 @@
   "name": "vue-router-prefetch",
   "version": "1.0.0",
   "description": "Prefetch the route components of router-link in viewport.",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/vue-router-prefetch.cjs.js",
+  "module": "dist/vue-router-prefetch.esm.js",
   "files": [
     "dist"
   ],
