@@ -31,6 +31,8 @@ Vue.use(RouterPrefetch)
 
 Then you can use `<router-link>` without any changes, when this component is visible in viewport, it will automatically prefetch the (async) route component.
 
+**Check out the [live demo](https://stackblitz.com/edit/vue-nr9q5u).**
+
 You can also register it as a new component instead of overriding `<router-link>`:
 
 ```js
