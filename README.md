@@ -50,7 +50,7 @@ Now you can use it as `<quick-link>` in your app.
 
 ## Props
 
-All [props](https://router.vuejs.org/api/#router-link-props) of `<router-link>` are still available, addtional props are listed below.
+All [props](https://router.vuejs.org/api/#router-link-props) of `<router-link>` are still available, additional props are listed below.
 
 ### prefetch
 
@@ -64,7 +64,7 @@ Whether to prefetch the matched route component.
 - Type: `string[]`
 - Examples: `['/foo.css']`
 
-A list of addtional files to prefetch. By default we only prefetch the route component.
+A list of additional files to prefetch. By default we only prefetch the route component.
 
 ## Credits
 
