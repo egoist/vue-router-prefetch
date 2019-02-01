@@ -1,5 +1,5 @@
 import prefetch from './prefetch'
-import { canPrefetch, supportIntersectionObserver } from './utils'
+import { canPrefetch, supportIntersectionObserver, inBrowser } from './utils'
 
 function installRouterPrefetch(Vue, { componentName = 'RouterLink' } = {}) {
   const observer =
@@ -11,6 +11,20 @@ function installRouterPrefetch(Vue, { componentName = 'RouterLink' } = {}) {
         }
       })
     })
+
+  const requestIdleCallback =
+    (inBrowser && window.requestIdleCallback) ||
+    function(cb) {
+      const start = Date.now()
+      return setTimeout(() => {
+        cb({
+          didTimeout: false,
+          timeRemaining() {
+            return Math.max(0, 50 - (Date.now() - start))
+          }
+        })
+      }, 1)
+    }
 
   const RouterLink = Vue.component('RouterLink') || Vue.component('router-link')
 
@@ -34,9 +48,7 @@ function installRouterPrefetch(Vue, { componentName = 'RouterLink' } = {}) {
     },
     mounted() {
       if (this.prefetch && observer && canPrefetch) {
-        setTimeout(() => {
-          this.observe()
-        }, 1000)
+        requestIdleCallback(this.observe, { timeout: 1000 })
       }
     },
     beforeDestory() {
