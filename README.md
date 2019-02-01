@@ -6,7 +6,7 @@
 
 ## Features
 
-- Prefetch links that are only visible in viewport.
+- Prefetch links when they are visible in viewport.
 - You don't need to change your code base to make it work.
 - Tiny-size.
 
