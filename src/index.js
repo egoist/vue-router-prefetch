@@ -44,11 +44,15 @@ function installRouterPrefetch(Vue, { componentName = 'RouterLink' } = {}) {
       },
       prefetchFiles: {
         type: Array
+      },
+      timeout: {
+        type: Number,
+        default: 2000
       }
     },
     mounted() {
       if (this.prefetch && observer && canPrefetch) {
-        requestIdleCallback(this.observe, { timeout: 1000 })
+        requestIdleCallback(this.observe, { timeout: this.timeout })
       }
     },
     beforeDestory() {

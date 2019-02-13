@@ -66,6 +66,13 @@ Whether to prefetch the matched route component.
 
 A list of additional files to prefetch. By default we only prefetch the route component.
 
+### timeout
+
+- Type: `number`
+- Default: `2000` (ms)
+
+Timeout after which prefetching will occur.
+
 ## Credits
 
 Inspired by [quicklink](https://github.com/GoogleChromeLabs/quicklink) and [`nuxt-link`](https://github.com/nuxt/nuxt.js/pull/4574/).
