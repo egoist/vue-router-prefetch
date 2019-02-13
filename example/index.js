@@ -30,7 +30,13 @@ const Nav = {
             <router-link to="/page/5">page 5</router-link>
           </li>
           <li>
+            <router-link to="/async-page">async-page</router-link>
+          </li>
+          <li>
             <router-link to="/page/6">page 6</router-link>
+          </li>
+          <li>
+            <router-link to="/page/1">page 1</router-link>
           </li>
         </ul>
       </div>
@@ -66,6 +72,16 @@ const router = new Router({
           )
         }
       }
+    },
+    {
+      path: '/async-page',
+      meta: {
+        prefetch(route) {
+          console.log(route)
+        }
+      },
+      component: () =>
+        import(/* webpackChunkName: "async-page" */ './async-page.vue')
     }
   ]
 })

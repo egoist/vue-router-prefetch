@@ -59,12 +59,40 @@ All [props](https://router.vuejs.org/api/#router-link-props) of `<router-link>` 
 
 Whether to prefetch the matched route component.
 
+You can also set `meta.prefetch` on vue-router's `route` object to disable prefetching this route for all `<router-link>`s:
+
+```js
+new VueRouter({
+  routes: [
+    {
+      path: '/some-async-page',
+      meta: { prefetch: false },
+      component: () => import('./async-page.vue')
+    }
+  ]
+})
+```
+
 ### prefetchFiles
 
 - Type: `string[]`
 - Examples: `['/foo.css']`
 
 A list of additional files to prefetch. By default we only prefetch the route component.
+
+You can also set `meta.prefetchFiles` on vue-router's `route` object, it will be merged with the prop value:
+
+```js
+new VueRouter({
+  routes: [
+    {
+      path: '/some-async-page',
+      meta: { prefetchFiles: ['/foo.css'] },
+      component: () => import('./async-page.vue')
+    }
+  ]
+})
+```
 
 ### timeout
 

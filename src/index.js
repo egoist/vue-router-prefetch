@@ -71,21 +71,36 @@ function installRouterPrefetch(Vue, { componentName = 'RouterLink' } = {}) {
       },
       getComponents() {
         return this.$router.getMatchedComponents(this.to).filter(Component => {
-          return typeof Component === 'function' && !Component._prefetched
+          return typeof Component === 'function'
         })
       },
       linkPrefetch() {
-        // Prefetch route component
-        const components = this.getComponents()
-        for (const Component of components) {
-          this.$emit('prefetch', this.to)
-          Component() // eslint-disable-line new-cap
-          Component._prefetched = true
+        const { route } = this.$router.resolve(this.to)
+
+        if (route.meta.__prefetched) return
+
+        route.meta.__prefetched = true
+
+        if (route.meta.prefetch !== false) {
+          // Prefetch route component
+          const components = this.getComponents()
+          for (const Component of components) {
+            this.$emit('prefetch', this.to)
+            Component() // eslint-disable-line new-cap
+          }
+        }
+
+        if (typeof route.meta.prefetch === 'function') {
+          route.meta.prefetch(route)
         }
 
         // Prefetch addtional files
-        if (this.prefetchFiles) {
-          for (const file of this.prefetchFiles) {
+        const prefetchFiles = [
+          ...(this.prefetchFiles || []),
+          ...(route.meta.prefetchFiles || [])
+        ]
+        if (prefetchFiles.length > 0) {
+          for (const file of prefetchFiles) {
             prefetch(file)
           }
         }
