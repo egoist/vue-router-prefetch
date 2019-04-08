@@ -73,6 +73,14 @@ new VueRouter({
 })
 ```
 
+It's also possible to turn of prefetching globally:
+
+```js
+Vue.use(RouterPrefetch, {
+  prefetch: false
+})
+```
+
 ### prefetchFiles
 
 - Type: `string[]`

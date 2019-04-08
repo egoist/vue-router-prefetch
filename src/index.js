@@ -1,7 +1,10 @@
 import prefetch from './prefetch'
 import { canPrefetch, supportIntersectionObserver, inBrowser } from './utils'
 
-function installRouterPrefetch(Vue, { componentName = 'RouterLink' } = {}) {
+function installRouterPrefetch(
+  Vue,
+  { componentName = 'RouterLink', prefetch: enablePrefetch = true } = {}
+) {
   const observer =
     supportIntersectionObserver &&
     new window.IntersectionObserver(entries => {
@@ -40,7 +43,7 @@ function installRouterPrefetch(Vue, { componentName = 'RouterLink' } = {}) {
     props: {
       prefetch: {
         type: Boolean,
-        default: true
+        default: enablePrefetch
       },
       prefetchFiles: {
         type: Array
