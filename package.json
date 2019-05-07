@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "Prefetch the route components of router-link in viewport.",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.esm.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "test": "npm run lint",
     "lint": "xo",
-    "build": "bili --format esm,cjs --minify --minimal",
+    "build": "bili --format esm,cjs,esm-min --minimal",
     "prepublishOnly": "npm run build",
     "example": "poi example/index.js --serve --jsx vue",
     "commit": "git-cz"
