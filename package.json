@@ -4,8 +4,10 @@
   "description": "Prefetch the route components of router-link in viewport.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
+  "types": "types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "test": "npm run lint",
