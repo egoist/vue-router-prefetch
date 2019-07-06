@@ -5,6 +5,8 @@ import RoutePrefetch from '../src'
 Vue.use(Router)
 Vue.use(RoutePrefetch)
 
+window.pages = new Set()
+
 const Nav = {
   render() {
     return (
@@ -20,7 +22,7 @@ const Nav = {
             <router-link to="/page/3">page 3</router-link>
           </li>
         </ul>
-        <ul style="margin-top: 110vh;">
+        <ul style="margin-top: 110vh;" id="bottom">
           <li>
             <router-link to="/page/4" prefetchFiles={['/foo']}>
               page 4
@@ -46,6 +48,7 @@ const Nav = {
 
 const createPage = id => async () => {
   console.log(`fetching page ${id}`)
+  window.pages.add(id)
   return {
     render() {
       return (
