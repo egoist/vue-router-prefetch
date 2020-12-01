@@ -17,7 +17,7 @@ function installRouterPrefetch(
 
   const requestIdleCallback =
     (inBrowser && window.requestIdleCallback) ||
-    function(cb) {
+    function(cb, { timeout = 1 }) {
       const start = Date.now()
       return setTimeout(() => {
         cb({
@@ -26,7 +26,7 @@ function installRouterPrefetch(
             return Math.max(0, 50 - (Date.now() - start))
           }
         })
-      }, 1)
+      }, timeout)
     }
 
   const RouterLink = Vue.component('RouterLink') || Vue.component('router-link')
