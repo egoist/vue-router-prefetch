@@ -58,7 +58,7 @@ function installRouterPrefetch(
         requestIdleCallback(this.observe, { timeout: this.timeout })
       }
     },
-    beforeDestory() {
+    beforeDestroy() {
       this.unobserve()
     },
     methods: {
