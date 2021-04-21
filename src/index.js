@@ -74,7 +74,7 @@ function installRouterPrefetch(
       },
       getComponents() {
         return this.$router.getMatchedComponents(this.to).filter(Component => {
-          return Component.cid === undefined && typeof Component === 'function'
+          return typeof Component === 'function' && Component.cid === undefined
         })
       },
       linkPrefetch() {
