@@ -2,7 +2,7 @@ import prefetch from './prefetch'
 import { canPrefetch, supportIntersectionObserver, inBrowser } from './utils'
 
 function installRouterPrefetch(
-  Vue,
+  app,
   { componentName = 'RouterLink', prefetch: enablePrefetch = true } = {}
 ) {
   const observer =
@@ -29,11 +29,11 @@ function installRouterPrefetch(
       }, timeout)
     }
 
-  const RouterLink = Vue.component('RouterLink') || Vue.component('router-link')
+  const RouterLink = app.component('RouterLink') || app.component('router-link')
 
   if (process.env.NODE_ENV === 'development' && !RouterLink) {
     console.error(
-      `[vue-router-prefetch] You need to call Vue.use(VueRouter) before this plugin!`
+      `[vue-router-prefetch] You need to call app.use(VueRouter) before this plugin!`
     )
   }
 
@@ -52,6 +52,9 @@ function installRouterPrefetch(
         type: Number,
         default: 2000
       }
+    },
+    setup(props, context) {
+      return RouterLink.setup(props, context)
     },
     mounted() {
       if (this.prefetch && observer && canPrefetch) {
@@ -72,13 +75,20 @@ function installRouterPrefetch(
           observer.unobserve(this.$el)
         }
       },
-      getComponents() {
-        return this.$router.getMatchedComponents(this.to).filter(Component => {
-          return Component.cid === undefined && typeof Component === 'function'
-        })
+      getRouteComponents(route) {
+        return route.matched
+          .map(record => {
+            return Object.values(record.components)
+          })
+          .flat()
+          .filter(Component => {
+            return (
+              Component.cid === undefined && typeof Component === 'function'
+            )
+          })
       },
       linkPrefetch() {
-        const { route } = this.$router.resolve(this.to)
+        const route = this.$router.resolve(this.to)
 
         if (route.meta.__prefetched) return
 
@@ -86,7 +96,7 @@ function installRouterPrefetch(
 
         if (route.meta.prefetch !== false) {
           // Prefetch route component
-          const components = this.getComponents()
+          const components = this.getRouteComponents(route)
           for (const Component of components) {
             this.$emit('prefetch', this.to)
             Component() // eslint-disable-line new-cap
@@ -113,12 +123,12 @@ function installRouterPrefetch(
     }
   }
 
-  Vue.component(Link.name, Link)
+  app.component(Link.name, Link)
 }
 
 export {
   prefetch,
-  // Export as `install` to make `Vue.use(require('vue-router-prefetch'))` work
+  // Export as `install` to make `app.use(require('vue-router-prefetch'))` work
   installRouterPrefetch as install
 }
 

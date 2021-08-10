@@ -27,6 +27,7 @@
   "author": "egoist<0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@vue/compiler-sfc": "^3.1.5",
     "babel-eslint": "^10.0.1",
     "bili": "^4.0.9",
     "commitizen": "^3.0.5",
@@ -43,9 +44,9 @@
     "poi": "^12.4.6",
     "prettier": "^1.15.2",
     "semantic-release": "^17.3.0",
-    "vue": "^2.5.22",
-    "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.5.22",
+    "vue": "^3.1.5",
+    "vue-loader": "^16.5.0",
+    "vue-router": "^4.0.10",
     "xo": "^0.23.0"
   },
   "xo": {
