@@ -84,7 +84,7 @@ function installRouterPrefetch(
           .flat()
           .filter(Component => {
             return (
-              Component.cid === undefined && typeof Component === 'function'
+              typeof Component === 'function' && Component.cid === undefined
             )
           })
       },
