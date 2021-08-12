@@ -16,17 +16,21 @@
 yarn add vue-router-prefetch
 ```
 
+If you're using Vue 2, you should install `vue-router-prefetch@1` instead.
+
 ## Usage
 
 You need to use this plugin after `vue-router`:
 
 ```js
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createApp } from 'vue'
+import { createRouter } from 'vue-router'
 import RouterPrefetch from 'vue-router-prefetch'
 
-Vue.use(Router)
-Vue.use(RouterPrefetch)
+const app = createApp()
+const router = createRouter()
+app.use(router)
+app.use(RouterPrefetch)
 ```
 
 Then you can use `<router-link>` without any changes, when this component is visible in viewport, it will automatically prefetch the (async) route component.
@@ -36,7 +40,7 @@ Then you can use `<router-link>` without any changes, when this component is vis
 You can also register it as a new component instead of overriding `<router-link>`:
 
 ```js
-Vue.use(RouterPrefetch, {
+app.use(RouterPrefetch, {
   componentName: 'QuickLink'
 })
 ```
@@ -62,7 +66,7 @@ Whether to prefetch the matched route component.
 You can also set `meta.prefetch` on vue-router's `route` object to disable prefetching this route for all `<router-link>`s:
 
 ```js
-new VueRouter({
+createRouter({
   routes: [
     {
       path: '/some-async-page',
@@ -76,7 +80,7 @@ new VueRouter({
 It's also possible to turn of prefetching globally:
 
 ```js
-Vue.use(RouterPrefetch, {
+app.use(RouterPrefetch, {
   prefetch: false
 })
 ```
@@ -91,7 +95,7 @@ A list of additional files to prefetch. By default we only prefetch the route co
 You can also set `meta.prefetchFiles` on vue-router's `route` object, it will be merged with the prop value:
 
 ```js
-new VueRouter({
+createRouter({
   routes: [
     {
       path: '/some-async-page',

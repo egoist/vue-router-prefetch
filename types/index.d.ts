@@ -1,12 +1,13 @@
 declare module 'vue-router-prefetch' {
-  import { PluginFunction } from 'vue'
-
   export interface RouterPrefetchOptions {
-    componentName?: string;
-    prefetch?: boolean;
+    componentName?: string
+    prefetch?: boolean
   }
 
-  const install: PluginFunction<RouterPrefetchOptions>
+  const install: (
+    app: import('vue').App,
+    options?: RouterPrefetchOptions
+  ) => void
 
   export default install
 }
