@@ -2,6 +2,7 @@ import prefetch from './prefetch'
 import { canPrefetch, supportIntersectionObserver, inBrowser } from './utils'
 
 function installRouterPrefetch(
+  /** @type {import('vue').App} */
   app,
   { componentName = 'RouterLink', prefetch: enablePrefetch = true } = {}
 ) {
@@ -39,8 +40,8 @@ function installRouterPrefetch(
 
   const Link = {
     name: componentName,
-    extends: RouterLink,
     props: {
+      ...RouterLink.props,
       prefetch: {
         type: Boolean,
         default: enablePrefetch
@@ -123,7 +124,8 @@ function installRouterPrefetch(
     }
   }
 
-  app.component(Link.name, Link)
+  // `app.component(Link.name, Link)` will emit a warning
+  app._context.components[Link.name] = Link
 }
 
 export {
